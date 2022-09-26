@@ -1,0 +1,71 @@
+use empresa
+create table agenda(
+id int identity(1,1),
+evento varchar(80),
+fecini date,
+fecfin date)
+---IF: procedimiento que evita que se ingrese una fecha menor que la inicial
+CREATE PROCEDURE SumaEvento
+@evento varchar(80),
+@ini date,
+@fin date
+AS
+BEGIN
+IF @fin > @ini
+	INSERT INTO Agenda VALUES (@evento,@ini,@fin)
+else 
+	PRINT 'La fecha es erronea'
+END
+SET DATEFORMAT DMY;
+execute SumaEvento 'Examen parcial','01-08-2022','01-02-2022'
+execute SumaEvento 'Examen','31-07-2022','05-08-2022'
+SELECT * FROM agenda
+
+---CASE ----
+CREATE TABLE vendedor(
+vendedor varchar(25),
+sueldo int,
+tot_ventas int,
+sucursal int 
+)
+
+INSERT INTO vendedor VALUES ('carlos cuadros',200,345.56,1),
+('Karla Olmos',200,3123.05,3),('carlos cuadros',200,509.87,2),
+('Karla Olmos',200,3123.05,3),('Efrain Burgos',200,800.00,2),
+('Karla Olmos',200,800.05,2),('Efrain Burgos',200,654.00,2),
+('Efrain Burgos',200,123.00,2),('carlos cuadros',200,450.56,1)
+
+SELECT * FROM VENDEDOR
+--ACTUALIZAR UN INCREMENTO EN EL SUELDO DE 2%,3%,7%
+UPDATE VENDEDOR SET sueldo=CASE 
+WHEN tot_ventas BETWEEN 100 AND 700 THEN sueldo+tot_ventas*0.02
+WHEN tot_ventas BETWEEN 700 AND 2000 THEN sueldo+tot_ventas*0.03
+WHEN tot_ventas>=2001.00 THEN sueldo+tot_ventas*0.07
+END
+SELECT * FROM VENDEDOR
+--MOSTRAR EL TOTAL DE VENTAS POR VENDEDOR
+
+SELECT * FROM VENDEDOR
+Select vendedor,SUM(tot_ventas) as Total from [vendedor] group by vendedor
+--mostrar las sucursales 1 = cercado, 2= breña, 3=olivos,4=lince,5=jesus maria si es otro no asignado
+SELECT vendedor, sueldo,sucursal, CASE sucursal
+WHEN 1 THEN 'Cercado'
+WHEN 2 THEN 'Breña' 
+WHEN 3 THEN 'Olivos' 
+WHEN 4 THEN 'Lince' 
+WHEN 5 THEN 'Jesus Maria' 
+ELSE 'No asignado' 
+END as Distrito FROM vendedor
+
+--USO DE VARIABLES
+Declare @nombre varchar (50)
+set @nombre ='SQL avanzado'
+print @nombre
+
+declare @venta int
+set @venta = (SELECT tot_ventas from vendedor where sucursal = 2 and sueldo=210)
+PRINT @venta
+
+----grabajo grupal
+tema 01:  Estructuras de programacion (if, case, variables, while, try,..)
+tema 02: Transacciones(rollback, commit, ..., cursores 

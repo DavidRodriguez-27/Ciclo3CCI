@@ -1,0 +1,24 @@
+/*Script INSERT*/
+Use Negocios
+go
+
+/*Insertar datos a la tabla Categoria*/
+Insert Compras.categorias
+(IdCategoria, NombreCategoria)
+Values
+('99','Cereales')
+go
+
+/*Consultar */
+Select * from Compras.categorias
+go
+
+/*Insertar a la tabla categoria registros desde la BD Northwind
+tabla categories*/
+Insert Compras.categorias
+(IdCategoria, NombreCategoria)
+Select CategoryID*100, CategoryName from NORTHWND..Categories
+go
+
+
+

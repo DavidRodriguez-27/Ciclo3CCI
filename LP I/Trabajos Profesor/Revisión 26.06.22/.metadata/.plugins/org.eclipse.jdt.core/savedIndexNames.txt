@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Users\jcardero\OneDrive - NTT DATA EMEAL\Escritorio\Dev\David\Cibertec\Tercer Ciclo (Pendiente)\LP I\5. Trabajos en Clases\(8)26.06.22\.metadata\.plugins\org.eclipse.jdt.core
+671921264.index
+315093584.index
+2318529290.index

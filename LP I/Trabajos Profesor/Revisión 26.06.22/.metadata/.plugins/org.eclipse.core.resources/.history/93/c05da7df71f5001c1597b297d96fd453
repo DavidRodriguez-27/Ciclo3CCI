@@ -1,0 +1,168 @@
+import java.awt.EventQueue;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+public class frm1 {
+
+	private JFrame frame;
+	private JTextField txt_codigo;
+	private JTextField txt_ususario;
+	private JTextField txt_contrasena;
+	private JTextField txt_nombre;
+	private JTextField txt_apellido;
+	private JTextField txt_edad;
+	private JTextField txt_pais;
+	private JTable table;
+	private Connection conexion;
+
+	DefaultTableModel dfm =new DefaultTableModel();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frm1 window = new frm1();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public frm1() {
+		initialize();
+		
+		try{
+			//conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/usuarios_login", "root", "clave");
+			conexion = DriverManager.getConnection("jdbc:mysql://localhost/usuarios_login?useTimezOne=true&serverTimezone=UTC","root","MiSQLDR");
+			table=this.table;
+			table.setModel(dfm);
+			dfm.setColumnIdentifiers(new object[] {"ID", "Usuario", "Contraseña", "Contraseña", "Nombre", "Apellido", "Edad", "Pais"});
+			//Mostrar_grid();
+
+		}catch(Exception e) {
+			e.getStackTrace();
+			JOptionPane.showMessageDialog(null, "Error al conectar a BD");
+		}
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 622, 450);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Codigo");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel.setBounds(25, 45, 48, 30);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JLabel lblUsuario = new JLabel("Usuario");
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblUsuario.setBounds(25, 85, 48, 30);
+		frame.getContentPane().add(lblUsuario);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Contrase\u00F1a");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_1_1.setBounds(25, 126, 71, 30);
+		frame.getContentPane().add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("Nombre");
+		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_1_1_1.setBounds(25, 166, 48, 30);
+		frame.getContentPane().add(lblNewLabel_1_1_1);
+		
+		txt_codigo = new JTextField();
+		txt_codigo.setBounds(110, 52, 96, 19);
+		frame.getContentPane().add(txt_codigo);
+		txt_codigo.setColumns(10);
+		
+		txt_ususario = new JTextField();
+		txt_ususario.setColumns(10);
+		txt_ususario.setBounds(110, 92, 96, 19);
+		frame.getContentPane().add(txt_ususario);
+		
+		txt_contrasena = new JTextField();
+		txt_contrasena.setColumns(10);
+		txt_contrasena.setBounds(110, 133, 96, 19);
+		frame.getContentPane().add(txt_contrasena);
+		
+		txt_nombre = new JTextField();
+		txt_nombre.setColumns(10);
+		txt_nombre.setBounds(110, 173, 96, 19);
+		frame.getContentPane().add(txt_nombre);
+		
+		JLabel lblApellido = new JLabel("Apellido");
+		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblApellido.setBounds(258, 85, 48, 30);
+		frame.getContentPane().add(lblApellido);
+		
+		txt_apellido = new JTextField();
+		txt_apellido.setColumns(10);
+		txt_apellido.setBounds(346, 92, 96, 19);
+		frame.getContentPane().add(txt_apellido);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("Edad");
+		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_1_2.setBounds(258, 126, 48, 30);
+		frame.getContentPane().add(lblNewLabel_1_2);
+		
+		txt_edad = new JTextField();
+		txt_edad.setColumns(10);
+		txt_edad.setBounds(346, 133, 96, 19);
+		frame.getContentPane().add(txt_edad);
+		
+		JLabel lblNewLabel_1_2_1 = new JLabel("Pais");
+		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_1_2_1.setBounds(258, 166, 48, 30);
+		frame.getContentPane().add(lblNewLabel_1_2_1);
+		
+		txt_pais = new JTextField();
+		txt_pais.setColumns(10);
+		txt_pais.setBounds(346, 173, 96, 19);
+		frame.getContentPane().add(txt_pais);
+		
+		JButton btn_insertar = new JButton("INSERTAR");
+		btn_insertar.setBounds(490, 91, 96, 21);
+		frame.getContentPane().add(btn_insertar);
+		
+		JButton btn_actualizar = new JButton("ACTUALIZAR");
+		btn_actualizar.setBounds(490, 132, 96, 21);
+		frame.getContentPane().add(btn_actualizar);
+		
+		JButton btn_eliminar = new JButton("ELIMINAR");
+		btn_eliminar.setBounds(490, 172, 96, 21);
+		frame.getContentPane().add(btn_eliminar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(25, 226, 551, 164);
+		frame.getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+	}
+}

@@ -1,0 +1,41 @@
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+import javax.swing.JTable;
+import java.awt.BorderLayout;
+
+public class frmArticulos extends JInternalFrame {
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frmArticulos frame = new frmArticulos();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public frmArticulos() {
+		setTitle("MANTENIMIENTO DE ARTICULOS");
+		setClosable(true);
+		setMaximizable(true);
+		setIconifiable(true);
+		setBounds(100, 100, 310, 211);
+		
+		table = new JTable();
+		getContentPane().add(table, BorderLayout.CENTER);
+
+	}
+
+}

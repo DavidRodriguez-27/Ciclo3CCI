@@ -1,0 +1,145 @@
+create database BDTAMBO;
+use BDTAMBO;
+create table cliente
+(
+idcliente varchar(10) not null primary key,
+nomcliente varchar(30),
+direccion varchar(80),
+iddistrito varchar(10)
+) ENGINE = InnoDB;
+create table distrito
+(
+iddistrito varchar(10) not null primary key,
+nomdistrito varchar(40)
+) ENGINE = InnoDB;
+create table articulo
+(
+idarticulo varchar(10) not null primary key,
+nomarticulo varchar(30),
+precio decimal(10,2),
+stock int,
+fechavenc datetime,
+idcategoria varchar(10)
+) ENGINE = InnoDB;
+create table categoria
+(
+idcategoria varchar(10) not null primary key,
+nomcategoria varchar(40)
+) ENGINE = InnoDB;
+alter table cliente add foreign key (iddistrito) references distrito(iddistrito);
+alter table articulo add foreign key (idcategoria) references categoria(idcategoria);
+create table venta
+(
+idventa varchar(10) not null primary key,
+idcliente varchar(10),
+fechavenc datetime,
+total  decimal(10,2)
+) ENGINE = InnoDB;
+alter table venta add foreign key (idcliente) references cliente(idcliente);
+create table detventa
+(
+idventa varchar(10) not null,
+idarticulo varchar(10) not null,
+cant  decimal(10,2),
+pu  decimal(10,2),
+subtotal  decimal(10,2)
+) ENGINE = InnoDB;
+alter table detventa add primary key (idventa,idarticulo);
+alter table detventa add foreign key (idventa) references venta(idventa);
+alter table detventa add foreign key (idarticulo) references articulo(idarticulo);
+------------------------------------------------------------------------
+insert distrito values ('C01', 'CALLAO');
+insert distrito values ('C02', 'BELLAVISTA');
+insert distrito values ('C03', 'CARMEN DE LA LEGUA');
+insert distrito values ('C04', 'LA PERLA');
+insert distrito values ('C05', 'LA PUNTA');
+insert distrito values ('C06', 'VENTANILLA');
+insert distrito values ('L01', 'LIMA CERCADO');
+insert distrito values ('L02', 'ANCON');
+insert distrito values ('L03', 'ATE');
+insert distrito values ('L04', 'BARRANCO');
+insert distrito values ('L05', 'BREÑA');
+insert distrito values ('L06', 'CARABAYLLO');
+insert distrito values ('L07', 'COMAS');
+insert distrito values ('L08', 'CHACLACAYO');
+insert distrito values ('L09', 'CHORRILLOS');
+insert distrito values ('L10', 'EL AGUSTINO');
+insert distrito values ('L11', 'JESUS MARIA');
+insert distrito values ('L12', 'LA MOLINA');
+insert distrito values ('L13', 'LA VICTORIA');
+insert distrito values ('L14', 'LINCE');
+insert distrito values ('L15', 'LURIGANCHO');
+insert distrito values ('L16', 'LURIN');
+insert distrito values ('L17', 'MAGDALENA DEL MAR');
+insert distrito values ('L18', 'MIRAFLORES');
+insert distrito values ('L19', 'PACHACAMAC');
+insert distrito values ('L20', 'PUCUSANA');
+insert distrito values ('L21', 'PUEBLO LIBRE');
+insert distrito values ('L22', 'PUENTE PIEDRA');
+insert distrito values ('L23', 'PUNTA NEGRA');
+insert distrito values ('L24', 'PUNTA HERMOSA');
+insert distrito values ('L25', 'RIMAC');
+insert distrito values ('L26', 'SAN BARTOLO');
+insert distrito values ('L27', 'SAN ISIDRO');
+insert distrito values ('L28', 'INDEPENDENCIA');
+insert distrito values ('L29', 'SAN JUAN DE MIRAFLORES');
+insert distrito values ('L30', 'SAN LUIS');
+insert distrito values ('L31', 'SAN MARTIN DE PORRES');
+insert distrito values ('L32', 'SAN MIGUEL');
+insert distrito values ('L33', 'SANTIAGO DE SURCO');
+insert distrito values ('L34', 'SURQUILLO');
+insert distrito values ('L35', 'VILLA MARIA DEL TRIUNFO');
+insert distrito values ('L36', 'SAN JUAN DE LURIGANCHO');
+insert distrito values ('L37', 'SANTA MARIA DEL MAR');
+insert distrito values ('L38', 'SANTA ROSA');
+insert distrito values ('L39', 'LOS OLIVOS');
+insert distrito values ('L40', 'CIENEGUILLA');
+insert distrito values ('L41', 'SAN BORJA');
+insert distrito values ('L42', 'VILLA EL SALVADOR');
+insert distrito values ('L43', 'SANTA ANITA');
+insert distrito values ('L91', 'RICARDO PALMA');
+insert distrito values ('L92', 'SANTA EULALIA');
+
+insert cliente values ('C01','Natasha Romanov','Av. Las Preciosas 123','L32');
+insert cliente values ('C02','Tony Stark','Jr. Los Genios 456','L27');
+insert cliente values ('C03','Bruce Banner','Calle Los Doctores 789','L18');
+
+insert categoria values ('CAT01','LACTEOS');
+insert categoria values ('CAT02','PESCADOS');
+insert categoria values ('CAT03','BEBIDAS');
+
+insert articulo values ('ART001','YOGURT GLORIA 200 ML',4.7,300,'20200317','CAT01');
+insert articulo values ('ART002','INKA KOLA 1LT',5.4,240,'20200531','CAT03');
+insert articulo values ('ART003','CORVINA 1KG',12.9,57,'20190517','CAT02');
+
+insert venta values ('V001','C01','20160305',200);
+insert venta values ('V002','C03','20160525',300);
+insert venta values ('V003','C03','20160714',200);
+insert venta values ('V004','C02','20170105',500);
+insert venta values ('V005','C02','20180424',400);
+insert venta values ('V006','C02','20181031',300);
+
+insert detventa values('V001','ART001',20,4,80);
+insert detventa values('V001','ART003',2,60,120);
+insert detventa values('V002','ART002',4,7,280);
+insert detventa values('V002','ART001',5,4,20);
+insert detventa values('V003','ART001',4,50,200);
+insert detventa values('V004','ART001',5,40,200);
+insert detventa values('V004','ART002',7,30,210);
+insert detventa values('V004','ART003',6,15,90);
+insert detventa values('V005','ART003',7,40,280);
+insert detventa values('V005','ART002',4,30,120);
+insert detventa values('V006','ART001',8,30,240);
+insert detventa values('V006','ART003',4,15,60);
+
+CREATE TABLE USUARIO
+(
+IDUSUARIO INT not null auto_increment primary key,
+NOMUSUARIO VARCHAR(30),
+CLAVEUSUARIO VARCHAR(30)
+) ENGINE = InnoDB;
+INSERT USUARIO (nomusuario,claveusuario) VALUES
+('DUA LIPA','123'),
+('LOONA','456'),
+('ALAN WALKER','789');
+SELECT * FROM USUARIO;
